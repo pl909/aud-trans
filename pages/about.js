@@ -24,9 +24,9 @@ export default function About() {
           The speech to text transcription powered by{" "}
           <Link href="https://aws.amazon.com/transcribe/">
             Amazon Transcribe 
-          </Link>
-           dand we use{" "}
-          <Link href="https://aws.amazon.com/transcribe/">ddd
+          </Link>, {" "}
+           and we use{" "}
+          <Link href="https://aws.amazon.com/transcribe/">
             Amazon Bedrock
           </Link>
           to generate the blog.
