@@ -23,10 +23,10 @@ export default function About() {
         <p className="prose">
           The speech to text transcription powered by{" "}
           <Link href="https://aws.amazon.com/transcribe/">
-            Amazon Transcribe
+            Amazon Transcribe 
           </Link>
-          and we use{" "}
-          <Link href="https://aws.amazon.com/transcribe/">
+           dand we use{" "}
+          <Link href="https://aws.amazon.com/transcribe/">ddd
             Amazon Bedrock
           </Link>
           to generate the blog.
