@@ -28,7 +28,7 @@ export default function PromptForm({
       <Message sender="replicate" isSameSender>
         <label htmlFor="prompt-input">
           {isFirstPrompt
-            ? "Hi, I'm your audio-to-blog assistant. Feel free to send me extra instructions"
+            ? "Hi, I'm your audio-to-blog assistant. Send me extra instructions for the blog below. If not, just type 'create'."
             : ""}
         </label>
       </Message>
