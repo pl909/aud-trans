@@ -17,7 +17,7 @@ export default function Dropzone(props) {
       <div className="m-auto">
         <input {...getInputProps()} />
         {isDragActive ? (
-          <p>Drop the image here ...</p>
+          <p>Drop the audio here ...</p>
         ) : (
           <p>
             <UploadIcon className="icon" />
