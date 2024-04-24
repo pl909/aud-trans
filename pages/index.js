@@ -1,11 +1,11 @@
+import { useEffect, useState } from "react";
+
 import Messages from "components/messages";
 import PromptForm from "components/prompt-form";
 import Head from "next/head";
-import { useEffect, useState } from "react";
-
 import Footer from "components/footer";
 
-import prepareImageFileForUpload from "lib/prepare-image-file-for-upload";
+import prepareAudioFileForUpload from "lib/prepare-audio-file-for-upload";
 import { getRandomSeed } from "lib/seeds";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -22,38 +22,36 @@ export default function Home() {
   const [seed] = useState(getRandomSeed());
   const [initialPrompt, setInitialPrompt] = useState(seed.prompt);
 
-  // set the initial image from a random seed
   useEffect(() => {
-    setEvents([{ image: seed.image }]);
-  }, [seed.image]);
+    setEvents([{ audio: seed.audio }]);
+  }, [seed.audio]);
 
-  const handleImageDropped = async (image) => {
+  const handleAudioDropped = async (audio) => {
     try {
-      image = await prepareImageFileForUpload(image);
+      audio = await prepareAudioFileForUpload(audio);
     } catch (error) {
       setError(error.message);
       return;
     }
-    setEvents(events.concat([{ image }]));
+    setEvents(events.concat([{ audio }]));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const prompt = e.target.prompt.value;
-    const lastImage = events.findLast((ev) => ev.image)?.image;
+    const lastAudio = events.findLast((ev) => ev.audio)?.audio;
 
     setError(null);
     setIsProcessing(true);
     setInitialPrompt("");
 
-    // make a copy so that the second call to setEvents here doesn't blow away the first. Why?
     const myEvents = [...events, { prompt }];
     setEvents(myEvents);
 
     const body = {
       prompt,
-      image: lastImage,
+      audio: lastAudio,
     };
 
     const response = await fetch("/api/predictions", {
@@ -70,10 +68,7 @@ export default function Home() {
       return;
     }
 
-    while (
-      prediction.status !== "succeeded" &&
-      prediction.status !== "failed"
-    ) {
+    while (prediction.status !== "succeeded" && prediction.status !== "failed") {
       await sleep(500);
       const response = await fetch("/api/predictions/" + prediction.id);
       prediction = await response.json();
@@ -82,13 +77,12 @@ export default function Home() {
         return;
       }
 
-      // just for bookkeeping
       setPredictions(predictions.concat([prediction]));
 
       if (prediction.status === "succeeded") {
         setEvents(
           myEvents.concat([
-            { image: prediction.output?.[prediction.output.length - 1] },
+            { audio: prediction.output?.[prediction.output.length - 1] },
           ])
         );
       }
@@ -148,7 +142,7 @@ export default function Home() {
         <Footer
           events={events}
           startOver={startOver}
-          handleImageDropped={handleImageDropped}
+          handleAudioDropped={handleAudioDropped}
         />
       </main>
     </div>
