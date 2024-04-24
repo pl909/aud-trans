@@ -10,7 +10,7 @@ import { getRandomSeed } from "lib/seeds";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-export const appName = "Upload Your Audio";
+export const appName = "Transform Your Conversation to a Blog";
 export const appSubtitle = "Attach your audio file to generate a blog post about the conversation using AI.";
 export const appMetaDescription = "Turn important conversations into blog posts, with the help of AI.";
 
